@@ -208,17 +208,17 @@ const Checkout = () => {
   const totalAmount = subtotal + deliveryFee;
 
   return (
-    <div className="container fade-in" style={{ padding: '40px 24px' }}>
+    <div className="container fade-in has-sticky-bottom" style={{ padding: '40px 24px' }}>
       <h1 className="page-title" style={{ marginBottom: '40px' }}>Checkout</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '48px', alignItems: 'start' }}>
+      <div className="desktop-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '48px', alignItems: 'start' }}>
         
         {/* Left Column: Address and Payment */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           
           {/* Delivery Address */}
-          <div className="glass-strong" style={{ padding: '32px', borderRadius: 'var(--radius-lg)' }}>
-            <h2 style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="glass-strong" style={{ padding: '24px', borderRadius: 'var(--radius-lg)' }}>
+            <h2 style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.4rem' }}>
               <MapPin size={24} /> Delivery Address
             </h2>
 
@@ -239,27 +239,29 @@ const Checkout = () => {
             )}
 
             {showNewAddress && (
-              <form onSubmit={handleSaveAddress} style={{ background: 'var(--bg-white)', padding: '24px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <form onSubmit={handleSaveAddress} style={{ background: 'var(--bg-white)', padding: '20px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', gap: '12px' }}>
                   <h3 style={{ fontSize: '1.1rem' }}>New Address</h3>
-                  <button type="button" onClick={handleDetectLocation} className="btn" style={{ background: 'var(--bg-cream)', color: 'var(--primary)', padding: '6px 12px', fontSize: '0.85rem' }}>
-                    📍 Auto-Detect Location (GPS)
+                  <button type="button" onClick={handleDetectLocation} className="btn" style={{ background: 'var(--bg-cream)', color: 'var(--primary)', padding: '6px 12px', fontSize: '0.8rem' }}>
+                    📍 GPS Auto-Detect
                   </button>
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                  <div className="input-group"><label>Full Name</label><input type="text" className="input-field" value={newAddress.full_name} onChange={e => setNewAddress({...newAddress, full_name: e.target.value})} required /></div>
-                  <div className="input-group"><label>Phone Number</label><input type="text" className="input-field" value={newAddress.phone} onChange={e => setNewAddress({...newAddress, phone: e.target.value})} required /></div>
-                </div>
-                <div className="input-group"><label>Street Address</label><textarea className="input-field" rows={2} value={newAddress.street_address} onChange={e => setNewAddress({...newAddress, street_address: e.target.value})} required></textarea></div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
-                  <div className="input-group"><label>City</label><input type="text" className="input-field" value={newAddress.city} onChange={e => setNewAddress({...newAddress, city: e.target.value})} required /></div>
-                  <div className="input-group"><label>State</label><input type="text" className="input-field" value={newAddress.state} onChange={e => setNewAddress({...newAddress, state: e.target.value})} required /></div>
-                  <div className="input-group"><label>PIN Code</label><input type="text" className="input-field" value={newAddress.postal_code} onChange={e => setNewAddress({...newAddress, postal_code: e.target.value})} required /></div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div className="input-group"><label>Full Name</label><input type="text" className="input-field" value={newAddress.full_name} onChange={e => setNewAddress({...newAddress, full_name: e.target.value})} required /></div>
+                    <div className="input-group"><label>Phone</label><input type="text" className="input-field" value={newAddress.phone} onChange={e => setNewAddress({...newAddress, phone: e.target.value})} required /></div>
+                  </div>
+                  <div className="input-group"><label>Street Address</label><textarea className="input-field" rows={2} value={newAddress.street_address} onChange={e => setNewAddress({...newAddress, street_address: e.target.value})} required></textarea></div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                    <div className="input-group"><label>City</label><input type="text" className="input-field" value={newAddress.city} onChange={e => setNewAddress({...newAddress, city: e.target.value})} required /></div>
+                    <div className="input-group"><label>State</label><input type="text" className="input-field" value={newAddress.state} onChange={e => setNewAddress({...newAddress, state: e.target.value})} required /></div>
+                    <div className="input-group"><label>PIN</label><input type="text" className="input-field" value={newAddress.postal_code} onChange={e => setNewAddress({...newAddress, postal_code: e.target.value})} required /></div>
+                  </div>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
-                  <button type="submit" className="btn btn-primary">Save Address</button>
+                  <button type="submit" className="btn btn-primary">Save</button>
                   {addresses.length > 0 && <button type="button" className="btn btn-secondary" onClick={() => setShowNewAddress(false)}>Cancel</button>}
                 </div>
               </form>
@@ -267,27 +269,27 @@ const Checkout = () => {
           </div>
 
           {/* Payment Method */}
-          <div className="glass-strong" style={{ padding: '32px', borderRadius: 'var(--radius-lg)' }}>
-            <h2 style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="glass-strong" style={{ padding: '24px', borderRadius: 'var(--radius-lg)' }}>
+            <h2 style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.4rem' }}>
               <CreditCard size={24} /> Payment Method
             </h2>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px', border: paymentMethod === 'online' ? '2px solid var(--primary)' : '1px solid var(--border)', borderRadius: 'var(--radius-md)', cursor: 'pointer', background: paymentMethod === 'online' ? 'var(--bg-cream)' : 'var(--bg-white)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', border: paymentMethod === 'online' ? '2px solid var(--primary)' : '1px solid var(--border)', borderRadius: 'var(--radius-md)', cursor: 'pointer', background: paymentMethod === 'online' ? 'var(--bg-cream)' : 'var(--bg-white)' }}>
                 <input type="radio" checked={paymentMethod === 'online'} onChange={() => setPaymentMethod('online')} />
-                <CreditCard size={28} color="var(--primary)" />
-                <div>
-                  <p style={{ fontWeight: 600, fontSize: '1.1rem' }}>Credit/Debit Card (Simulated)</p>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Secure online payment</p>
+                <CreditCard size={24} color="var(--primary)" />
+                <div style={{ flexGrow: 1 }}>
+                  <p style={{ fontWeight: 600, fontSize: '1rem' }}>Online Payment</p>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Secure checkout</p>
                 </div>
               </label>
 
-              <label style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px', border: paymentMethod === 'cod' ? '2px solid var(--primary)' : '1px solid var(--border)', borderRadius: 'var(--radius-md)', cursor: 'pointer', background: paymentMethod === 'cod' ? 'var(--bg-cream)' : 'var(--bg-white)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px', border: paymentMethod === 'cod' ? '2px solid var(--primary)' : '1px solid var(--border)', borderRadius: 'var(--radius-md)', cursor: 'pointer', background: paymentMethod === 'cod' ? 'var(--bg-cream)' : 'var(--bg-white)' }}>
                 <input type="radio" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} />
-                <Banknote size={28} color="#16a34a" />
-                <div>
-                  <p style={{ fontWeight: 600, fontSize: '1.1rem' }}>Cash on Delivery</p>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Pay with cash upon delivery</p>
+                <Banknote size={24} color="#16a34a" />
+                <div style={{ flexGrow: 1 }}>
+                  <p style={{ fontWeight: 600, fontSize: '1rem' }}>Cash on Delivery</p>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Pay at doorstep</p>
                 </div>
               </label>
             </div>
@@ -301,26 +303,23 @@ const Checkout = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px', maxHeight: '300px', overflowY: 'auto' }}>
             {cart.map(item => (
               <div key={item.uniqueCartId} style={{ display: 'flex', gap: '12px' }}>
-                <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }} />
+                <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '8px' }} />
                 <div style={{ flexGrow: 1 }}>
-                  <p style={{ fontWeight: 600, fontSize: '0.95rem' }}>{item.name}</p>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Qty: {item.quantity} {item.selectedSize ? `| ${item.selectedSize}` : ''} {item.selectedColor ? `| ${item.selectedColor}` : ''}</p>
+                  <p style={{ fontWeight: 600, fontSize: '0.9rem' }}>{item.name}</p>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Qty: {item.quantity} {item.selectedSize ? `| ${item.selectedSize}` : ''}</p>
                 </div>
-                <p style={{ fontWeight: 600 }}>₹{item.price * item.quantity}</p>
+                <p style={{ fontWeight: 600, fontSize: '0.9rem' }}>₹{item.price * item.quantity}</p>
               </div>
             ))}
           </div>
           
           <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '24px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
               <span style={{ color: 'var(--text-body)' }}>Subtotal</span>
               <span style={{ fontWeight: 600 }}>₹{subtotal.toFixed(2)}</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border-light)' }}>
-              <span style={{ color: 'var(--text-body)' }}>
-                Delivery Fee <br/>
-                <small style={{ fontSize: '0.75rem' }}>From Rohtak, Haryana</small>
-              </span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border-light)', fontSize: '0.95rem' }}>
+              <span style={{ color: 'var(--text-body)' }}>Delivery</span>
               <span style={{ color: deliveryFee === 0 ? '#16a34a' : 'var(--text-dark)', fontWeight: 600 }}>
                 {deliveryFee === 0 ? 'Calculating...' : `₹${deliveryFee}`}
               </span>
@@ -331,26 +330,32 @@ const Checkout = () => {
             </div>
 
             <button 
-              className="btn btn-primary" 
+              className="btn btn-primary desktop-only" 
               onClick={handlePlaceOrder} 
               disabled={processing || !selectedAddressId || deliveryFee === 0}
-              style={{ width: '100%', padding: '16px', fontSize: '1.1rem', position: 'relative' }}
+              style={{ width: '100%', padding: '16px', fontSize: '1.1rem' }}
             >
-              {processing ? (
-                <>
-                  <div className="loader" style={{ width: '20px', height: '20px', margin: 0, borderWidth: '2px', position: 'absolute', left: '20px' }}></div>
-                  {paymentMethod === 'online' ? 'Processing...' : 'Placing Order...'}
-                </>
-              ) : (
-                <>
-                  <ShieldCheck size={20} />
-                  {paymentMethod === 'online' ? `Pay ₹${totalAmount}` : 'Place Order'}
-                </>
-              )}
+              {processing ? 'Processing...' : 'Place Order'}
             </button>
           </div>
         </div>
 
+      </div>
+
+      {/* Sticky Bottom for Mobile Checkout */}
+      <div className="sticky-bottom-mobile">
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Final Total</span>
+          <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary)' }}>₹{totalAmount.toFixed(2)}</span>
+        </div>
+        <button 
+          className="btn btn-primary" 
+          onClick={handlePlaceOrder} 
+          disabled={processing || !selectedAddressId || deliveryFee === 0}
+          style={{ flexGrow: 1, padding: '14px' }}
+        >
+          {processing ? '...' : (paymentMethod === 'online' ? 'Pay & Order' : 'Confirm Order')}
+        </button>
       </div>
     </div>
   );
