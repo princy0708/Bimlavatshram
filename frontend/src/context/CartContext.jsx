@@ -14,27 +14,31 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find(item => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
+      // Use cartItemId if it exists (which includes size/color variations), otherwise fallback to product id
+      const uniqueId = product.cartItemId || product.id;
+      
+      const existingItemIndex = prevCart.findIndex(item => (item.cartItemId || item.id) === uniqueId);
+      
+      if (existingItemIndex >= 0) {
+        const newCart = [...prevCart];
+        newCart[existingItemIndex].quantity += 1;
+        return newCart;
       }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: 1, uniqueCartId: uniqueId }];
     });
   };
 
-  const removeFromCart = (productId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+  const removeFromCart = (uniqueCartId) => {
+    setCart(prevCart => prevCart.filter(item => (item.cartItemId || item.id) !== uniqueCartId));
   };
 
-  const updateQuantity = (productId, quantity) => {
+  const updateQuantity = (uniqueCartId, quantity) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(uniqueCartId);
       return;
     }
     setCart(prevCart => prevCart.map(item =>
-      item.id === productId ? { ...item, quantity } : item
+      (item.cartItemId || item.id) === uniqueCartId ? { ...item, quantity } : item
     ));
   };
 

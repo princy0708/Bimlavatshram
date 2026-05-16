@@ -62,6 +62,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithGoogle = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin,
+        }
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error logging in with Google:', error.message);
+    }
+  };
+
   const register = async (name, email, password) => {
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -80,12 +94,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const resetPassword = async (email) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/login',
+      });
+      if (error) return { success: false, message: error.message };
+      return { success: true };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
+
   const logout = async () => {
     await supabase.auth.signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, loginWithGoogle, register, resetPassword, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

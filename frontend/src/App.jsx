@@ -7,6 +7,9 @@ import Register from './pages/Register';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import AdminDashboard from './pages/AdminDashboard';
+import Wishlist from './pages/Wishlist';
+import Settings from './pages/Settings';
+import Checkout from './pages/Checkout';
 import { AuthContext } from './context/AuthContext';
 
 // Protected Route Component
@@ -37,6 +40,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
           <Route 
             path="/admin" 
             element={
