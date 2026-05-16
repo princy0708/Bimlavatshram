@@ -66,10 +66,10 @@ const Settings = () => {
     <div className="container fade-in" style={{ padding: '40px 24px' }}>
       <h1 className="page-title" style={{ marginBottom: '40px' }}>Account Settings</h1>
 
-      <div className="desktop-grid" style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '48px', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '48px', alignItems: 'start' }}>
         
         {/* Sidebar Nav */}
-        <div className="glass-strong hide-scrollbar" style={{ padding: '16px', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', gap: '8px', overflowX: 'auto' }}>
+        <div className="glass-strong" style={{ padding: '16px', borderRadius: 'var(--radius-md)' }}>
           {tabs.map(tab => (
             <button
               key={tab.id}
@@ -89,7 +89,7 @@ const Settings = () => {
         </div>
 
         {/* Content Area */}
-        <div className="glass-strong" style={{ padding: '24px', borderRadius: 'var(--radius-lg)', minHeight: '500px' }}>
+        <div className="glass-strong" style={{ padding: '40px', borderRadius: 'var(--radius-lg)', minHeight: '500px' }}>
           
           {loading ? <div className="loader"></div> : (
             <>

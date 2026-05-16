@@ -20,39 +20,39 @@ const Cart = () => {
   }
 
   return (
-    <div className="container fade-in has-sticky-bottom" style={{ padding: '40px 24px' }}>
+    <div className="container fade-in" style={{ padding: '40px 24px' }}>
       <h1 className="page-title" style={{ marginBottom: '40px' }}>Shopping Cart</h1>
       
-      <div className="desktop-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '48px', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '48px', alignItems: 'start' }}>
         
         {/* Cart Items */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {cart.map(item => (
-            <div key={item.uniqueCartId} className="glass-strong" style={{ display: 'flex', padding: '16px', borderRadius: 'var(--radius-lg)', gap: '16px', alignItems: 'center' }}>
-              <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: '80px', height: '100px', objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
+            <div key={item.uniqueCartId} className="glass-strong" style={{ display: 'flex', padding: '24px', borderRadius: 'var(--radius-lg)', gap: '24px', alignItems: 'center' }}>
+              <img src={item.images?.[0] || item.image} alt={item.name} style={{ width: '120px', height: '140px', objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
               
               <div style={{ flexGrow: 1 }}>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: '4px', color: 'var(--text-dark)' }}>{item.name}</h3>
-                <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '1rem', marginBottom: '8px' }}>₹{item.price}</p>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '8px', color: 'var(--text-dark)' }}>{item.name}</h3>
+                <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '12px' }}>₹{item.price}</p>
                 
-                <div style={{ display: 'flex', gap: '8px', fontSize: '0.75rem', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
-                  {item.selectedSize && <span style={{ background: 'var(--bg-cream)', padding: '2px 8px', borderRadius: '100px' }}>S: <strong>{item.selectedSize}</strong></span>}
-                  {item.selectedColor && <span style={{ background: 'var(--bg-cream)', padding: '2px 8px', borderRadius: '100px' }}>C: <strong>{item.selectedColor}</strong></span>}
+                <div style={{ display: 'flex', gap: '16px', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+                  {item.selectedSize && <span style={{ background: 'var(--bg-cream)', padding: '4px 12px', borderRadius: '100px' }}>Size: <strong>{item.selectedSize}</strong></span>}
+                  {item.selectedColor && <span style={{ background: 'var(--bg-cream)', padding: '4px 12px', borderRadius: '100px' }}>Color: <strong>{item.selectedColor}</strong></span>}
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '12px' }}>
-                <button onClick={() => removeFromCart(item.uniqueCartId)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#dc2626' }}>
-                  <Trash2 size={18} />
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '16px' }}>
+                <button onClick={() => removeFromCart(item.uniqueCartId)} className="btn btn-danger" style={{ padding: '8px 12px', fontSize: '0.85rem' }}>
+                  <Trash2 size={16} /> Remove
                 </button>
                 
                 <div style={{ display: 'flex', alignItems: 'center', background: 'var(--bg-white)', borderRadius: '100px', border: '1px solid var(--border)' }}>
-                  <button onClick={() => updateQuantity(item.uniqueCartId, item.quantity - 1)} style={{ background: 'none', border: 'none', padding: '6px 10px', cursor: 'pointer' }}>
-                    <Minus size={14} />
+                  <button onClick={() => updateQuantity(item.uniqueCartId, item.quantity - 1)} style={{ background: 'none', border: 'none', padding: '10px 16px', cursor: 'pointer' }}>
+                    <Minus size={16} />
                   </button>
-                  <span style={{ padding: '0 4px', fontWeight: 'bold', minWidth: '24px', textAlign: 'center', fontSize: '0.9rem' }}>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.uniqueCartId, item.quantity + 1)} style={{ background: 'none', border: 'none', padding: '6px 10px', cursor: 'pointer' }}>
-                    <Plus size={14} />
+                  <span style={{ padding: '0 8px', fontWeight: 'bold', minWidth: '30px', textAlign: 'center' }}>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.uniqueCartId, item.quantity + 1)} style={{ background: 'none', border: 'none', padding: '10px 16px', cursor: 'pointer' }}>
+                    <Plus size={16} />
                   </button>
                 </div>
               </div>
@@ -80,28 +80,16 @@ const Cart = () => {
             <span style={{ color: 'var(--primary)' }}>₹{total.toFixed(2)}</span>
           </div>
           
-          <button onClick={() => navigate('/checkout')} className="btn btn-primary desktop-only" style={{ width: '100%', padding: '18px', fontSize: '1.1rem' }}>
+          <button onClick={() => navigate('/checkout')} className="btn btn-primary" style={{ width: '100%', padding: '18px', fontSize: '1.1rem' }}>
             Proceed to Checkout
           </button>
           
-          <p className="desktop-only" style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '20px' }}>
+          <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '20px' }}>
             Secure checkout powered by Stripe.
           </p>
         </div>
 
       </div>
-
-      {/* Mobile Checkout Bar */}
-      <div className="sticky-bottom-mobile">
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Total Amount</span>
-          <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary)' }}>₹{total.toFixed(2)}</span>
-        </div>
-        <button onClick={() => navigate('/checkout')} className="btn btn-primary" style={{ flexGrow: 1, padding: '14px' }}>
-          Checkout Now
-        </button>
-      </div>
-    </div>
     </div>
   );
 };

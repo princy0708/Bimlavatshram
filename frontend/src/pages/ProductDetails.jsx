@@ -71,12 +71,12 @@ const ProductDetails = () => {
   const prevImage = () => setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
 
   return (
-    <div className="container fade-in has-sticky-bottom" style={{ padding: '40px 24px' }}>
+    <div className="container fade-in" style={{ padding: '40px 24px' }}>
       <button onClick={() => navigate(-1)} className="btn btn-secondary mb-4" style={{ padding: '8px 16px' }}>
         <ArrowLeft size={18} /> Back
       </button>
 
-      <div className="glass-strong desktop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '48px', padding: '48px', borderRadius: 'var(--radius-xl)' }}>
+      <div className="glass-strong" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '48px', padding: '48px', borderRadius: 'var(--radius-xl)' }}>
         
         {/* Image Gallery */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -103,16 +103,15 @@ const ProductDetails = () => {
           
           {/* Thumbnails */}
           {images.length > 1 && (
-            <div className="hide-scrollbar" style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
+            <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px' }}>
               {images.map((img, index) => (
                 <div 
                   key={index} 
                   onClick={() => setCurrentImageIndex(index)}
                   style={{ 
-                    minWidth: '80px', width: '80px', height: '80px', borderRadius: 'var(--radius-sm)', overflow: 'hidden', cursor: 'pointer',
+                    width: '80px', height: '80px', borderRadius: 'var(--radius-sm)', overflow: 'hidden', cursor: 'pointer',
                     border: currentImageIndex === index ? '3px solid var(--primary)' : '1px solid var(--border)',
-                    opacity: currentImageIndex === index ? 1 : 0.6,
-                    flexShrink: 0
+                    opacity: currentImageIndex === index ? 1 : 0.6
                   }}
                 >
                   <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -197,23 +196,12 @@ const ProductDetails = () => {
             <p style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#16a34a', fontWeight: 600, marginBottom: '24px' }}>
               <Check size={20} /> In Stock ({product.stock} available)
             </p>
-            <button className="btn btn-primary desktop-only" onClick={handleAddToCart} style={{ width: '100%', padding: '18px 32px', fontSize: '1.2rem' }}>
+            <button className="btn btn-primary" onClick={handleAddToCart} style={{ width: '100%', padding: '18px 32px', fontSize: '1.2rem' }}>
               <ShoppingCart size={24} /> Add to Cart
             </button>
           </div>
 
         </div>
-      </div>
-
-      {/* Sticky Bottom for Mobile */}
-      <div className="sticky-bottom-mobile">
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Total Price</span>
-          <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary)' }}>₹{product.price}</span>
-        </div>
-        <button className="btn btn-primary" onClick={handleAddToCart} style={{ flexGrow: 1, padding: '14px' }}>
-          <ShoppingCart size={18} /> Add to Cart
-        </button>
       </div>
     </div>
   );

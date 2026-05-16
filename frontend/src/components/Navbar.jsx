@@ -50,16 +50,13 @@ const Navbar = () => {
         </Link>
 
         <div className="nav-links">
-          <Link to="/" className="nav-link">
-            <User size={18} />
-            <span className="nav-text">Home</span>
-          </Link>
+          <Link to="/" className="nav-link">Home</Link>
           
           <Link to="/wishlist" className="nav-link" style={{ position: 'relative' }}>
             <Heart size={18} />
-            <span className="nav-text">Wishlist</span>
+            Wishlist
             {wishlist.length > 0 && (
-              <span className="badge" style={{ position: 'absolute', top: '2px', right: '4px' }}>
+              <span className="badge" style={{ position: 'absolute', top: '-4px', right: '-8px' }}>
                 {wishlist.length}
               </span>
             )}
@@ -67,9 +64,9 @@ const Navbar = () => {
 
           <Link to="/cart" className="nav-link" style={{ position: 'relative' }}>
             <ShoppingCart size={18} />
-            <span className="nav-text">Cart</span>
+            Cart
             {totalItems > 0 && (
-              <span className="badge" style={{ position: 'absolute', top: '2px', right: '4px' }}>
+              <span className="badge" style={{ position: 'absolute', top: '-4px', right: '-8px' }}>
                 {totalItems}
               </span>
             )}
@@ -77,17 +74,17 @@ const Navbar = () => {
 
           {user ? (
             <>
-              <Link to="/settings" className="nav-link">
+              <Link to="/settings" className="nav-link" style={{ position: 'relative' }}>
                 <Settings size={18} />
-                <span className="nav-text">Settings</span>
+                Settings
               </Link>
-              <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
+              <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '8px 20px', fontSize: '0.85rem' }}>
                 <LogOut size={16} />
-                <span className="nav-text">Logout</span>
+                Logout
               </button>
             </>
           ) : (
-            <Link to="/login" className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
+            <Link to="/login" className="btn btn-primary" style={{ padding: '10px 24px', fontSize: '0.85rem' }}>
               Sign In
             </Link>
           )}
